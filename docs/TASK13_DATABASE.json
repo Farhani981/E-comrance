@@ -1,0 +1,220 @@
+{
+  "configuration": {
+    "nodeEnv": "development",
+    "dbUserIsRoot": true,
+    "dbPasswordMissing": true,
+    "jwtPresent": true,
+    "jwtShort": false,
+    "stripePresent": true,
+    "stripeTestMode": true,
+    "webhookPresent": false,
+    "emailConfigured": true,
+    "frontendHttps": false
+  },
+  "server": {
+    "version": "10.4.32-MariaDB",
+    "maxPacket": 1048576,
+    "timezone": "SYSTEM"
+  },
+  "tables": [
+    {
+      "name": "app_migrations",
+      "engine": "InnoDB",
+      "approximateRows": 0
+    },
+    {
+      "name": "attribute_values",
+      "engine": "InnoDB",
+      "approximateRows": 7
+    },
+    {
+      "name": "banners",
+      "engine": "InnoDB",
+      "approximateRows": 3
+    },
+    {
+      "name": "catalog_nodes",
+      "engine": "InnoDB",
+      "approximateRows": 68
+    },
+    {
+      "name": "categories",
+      "engine": "InnoDB",
+      "approximateRows": 7
+    },
+    {
+      "name": "collections",
+      "engine": "InnoDB",
+      "approximateRows": 0
+    },
+    {
+      "name": "contact_messages",
+      "engine": "InnoDB",
+      "approximateRows": 0
+    },
+    {
+      "name": "customer_ledger",
+      "engine": "InnoDB",
+      "approximateRows": 0
+    },
+    {
+      "name": "customer_shopping",
+      "engine": "InnoDB",
+      "approximateRows": 1
+    },
+    {
+      "name": "inventory_settings",
+      "engine": "InnoDB",
+      "approximateRows": 0
+    },
+    {
+      "name": "orders",
+      "engine": "InnoDB",
+      "approximateRows": 17
+    },
+    {
+      "name": "order_items",
+      "engine": "InnoDB",
+      "approximateRows": 18
+    },
+    {
+      "name": "order_payment_receipts",
+      "engine": "InnoDB",
+      "approximateRows": 0
+    },
+    {
+      "name": "payment_checkouts",
+      "engine": "InnoDB",
+      "approximateRows": 0
+    },
+    {
+      "name": "products",
+      "engine": "InnoDB",
+      "approximateRows": 10
+    },
+    {
+      "name": "product_attributes",
+      "engine": "InnoDB",
+      "approximateRows": 4
+    },
+    {
+      "name": "product_attribute_values",
+      "engine": "InnoDB",
+      "approximateRows": 18
+    },
+    {
+      "name": "product_reviews",
+      "engine": "InnoDB",
+      "approximateRows": 0
+    },
+    {
+      "name": "product_variants",
+      "engine": "InnoDB",
+      "approximateRows": 12
+    },
+    {
+      "name": "promotions",
+      "engine": "InnoDB",
+      "approximateRows": 0
+    },
+    {
+      "name": "purchases",
+      "engine": "InnoDB",
+      "approximateRows": 5
+    },
+    {
+      "name": "purchase_items",
+      "engine": "InnoDB",
+      "approximateRows": 5
+    },
+    {
+      "name": "return_requests",
+      "engine": "InnoDB",
+      "approximateRows": 0
+    },
+    {
+      "name": "shopping_merge_receipts",
+      "engine": "InnoDB",
+      "approximateRows": 1
+    },
+    {
+      "name": "stock_adjustments",
+      "engine": "InnoDB",
+      "approximateRows": 8
+    },
+    {
+      "name": "store_settings",
+      "engine": "InnoDB",
+      "approximateRows": 1
+    },
+    {
+      "name": "suppliers",
+      "engine": "InnoDB",
+      "approximateRows": 2
+    },
+    {
+      "name": "users",
+      "engine": "InnoDB",
+      "approximateRows": 3
+    },
+    {
+      "name": "variant_attribute_values",
+      "engine": "InnoDB",
+      "approximateRows": 36
+    },
+    {
+      "name": "warehouses",
+      "engine": "InnoDB",
+      "approximateRows": 1
+    }
+  ],
+  "imageColumns": [
+    {
+      "TABLE_NAME": "order_items",
+      "COLUMN_NAME": "image",
+      "COLUMN_TYPE": "longtext"
+    },
+    {
+      "TABLE_NAME": "products",
+      "COLUMN_NAME": "image",
+      "COLUMN_TYPE": "longtext"
+    },
+    {
+      "TABLE_NAME": "product_variants",
+      "COLUMN_NAME": "image_url",
+      "COLUMN_TYPE": "longtext"
+    }
+  ],
+  "checks": {
+    "products": [
+      {
+        "total": 10,
+        "negativeValues": "0",
+        "duplicatedStockMismatch": "0"
+      }
+    ],
+    "orders": [
+      {
+        "total": 18,
+        "missingCurrency": "18",
+        "missingBreakdown": "18"
+      }
+    ],
+    "duplicates": [
+      {
+        "groupsWithDuplicates": 0
+      }
+    ],
+    "payments": [],
+    "refunds": [
+      {
+        "completedRefunds": 0
+      }
+    ],
+    "variantMismatch": [
+      {
+        "mismatches": 0
+      }
+    ]
+  }
+}

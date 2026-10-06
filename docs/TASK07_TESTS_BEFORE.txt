@@ -1,0 +1,159 @@
+
+> ecommerce-backend@1.0.0 test:all:isolated
+> node tests/runIsolatedDbTests.js
+
+✔ every configured category/subcategory link selects its product after API reload (17.8023ms)
+✔ legacy slugs and aliases select the same catalog items (0.9261ms)
+✔ custom names and ampersands survive links and reload (1.3495ms)
+✔ normalizes color names and hex values (3.399ms)
+✔ text attributes discard unused swatches (0.3438ms)
+✔ rejects invalid and duplicate values (0.7531ms)
+▶ public registration and database-backed administrator authorization
+  ✔ registration ignores role (omitted) (399.1361ms)
+  ✔ registration ignores role "admin" (256.0023ms)
+  ✔ registration ignores role "administrator" (256.1122ms)
+  ✔ registration ignores role "superadmin" (231.2751ms)
+  ✔ registration ignores role "ADMIN" (227.7407ms)
+  ✔ registration ignores role ["admin"] (239.2068ms)
+  ✔ registration ignores role {"role":"admin"} (231.3203ms)
+  ✔ existing customer registration validation is preserved (33.3622ms)
+  ✔ customer login and current-user response remain normal users (154.1502ms)
+  ✔ existing admin login and protected admin access still work (286.8825ms)
+  ✔ database role overrides signed admin claims and request state (12.8483ms)
+  ✔ unsigned browser/demo state and tampered JWT identity are rejected (62.1991ms)
+  ✔ customer denied across admin management API families (184.4502ms)
+  ✔ wrong passwords including former shortcuts never sign or return a JWT (497.1989ms)
+  ✔ unknown admin email has the same safe failure response and no JWT (2.9865ms)
+  ✔ empty and malformed login credentials fail validation without signing (132.6687ms)
+  ✔ internal login errors never expose database details or sign a JWT (4.7994ms)
+  ✔ expired configured-secret token is rejected (5.3803ms)
+  ✔ demoted administrator loses access despite a previously issued token (5.8301ms)
+✔ public registration and database-backed administrator authorization (3459.262ms)
+✔ banner API persistence, access control, visibility, ordering and deletion (356.7927ms)
+✔ banner payload retains editable content and supports partial visibility updates (4.4318ms)
+✔ unsafe destinations and malformed or oversized content are rejected (1.0281ms)
+✖ men’s catalog: database tree, protected management, dependent product assignments and filtering (795.653ms)
+▶ SQL image widening preserves history and permits large-image checkout
+  ✔ old TEXT capacity reproduces the checkout-image failure (22.1379ms)
+  ✔ migration widens existing schema idempotently and preserves all old image bytes (64.7746ms)
+Order status email skipped: email credentials or recipient is missing.
+  ✔ order creation and retrieval with a maximum-size product image (137.5481ms)
+Order status email skipped: email credentials or recipient is missing.
+  ✔ order creation and retrieval with a maximum-size variant image (92.9021ms)
+  ✔ existing URL and base64 order images still return through order history (56.7085ms)
+Stripe Payment Intent Error: Your total has changed. Refresh checkout before paying.
+Order status email skipped: email credentials or recipient is missing.
+  ✔ Cart quote -> Checkout quote -> Stripe amount -> stored order use the same PKR breakdown (346.3974ms)
+✔ SQL image widening preserves history and permits large-image checkout (1403.1079ms)
+✔ normal URLs, local references and base64 images are retained unchanged (3.4191ms)
+✔ large images above old TEXT capacity and exactly 512 KiB are supported (64.7761ms)
+✔ invalid MIME, disguised content, truncated base64 and unsafe references rejected (1.5993ms)
+✔ embedded images over 512 KiB rejected on the API/shared validation boundary (40.9409ms)
+✔ upload file metadata enforces raster type, nonempty content and raw file limit (0.5199ms)
+✔ variant validation applies the same image limits (46.2327ms)
+✔ checkout requests contain only IDs and quantities, never image copies (9.7205ms)
+✔ unchanged legacy variant images survive edits but new oversized images cannot bypass validation (38.1712ms)
+✔ image schema migration widens once and preserves nullability without data writes (1.2875ms)
+✔ JWT configuration requires an explicit secret without changing its value (2.8349ms)
+✔ production server exits before listening when JWT_SECRET is empty (1021.1355ms)
+✔ operations API authorization, moderation, inventory and returns (1290.7799ms)
+✔ automatic discounts use the best offer, not stacked discounts (1.4668ms)
+✔ product rules discount only the eligible product and cap fixed amounts (0.8611ms)
+✔ coupons require a matching code, dates, minimum spend and eligible products (0.7559ms)
+✔ money rounds to cents and invalid quantities are rejected (0.5535ms)
+✔ PKR shipping boundaries, zero cart and rounding use the existing rules (3.5862ms)
+✔ multiple products and variant sale prices come from SQL, ignoring all client amounts (1.2173ms)
+✔ product attributes persist on create/edit, reject invalid values, and clear (541.6329ms)
+✖ saves only selected options with authoritative names and swatches (5.8322ms)
+✔ rejects missing attributes, unavailable values, duplicates and malformed selections (1.0973ms)
+✖ clearing selections removes storefront options and handles old database rows (1.385ms)
+✔ purchase variants: receive, edit, reject over-reversal, delete (586.0671ms)
+✖ admin out-of-stock status overrides positive inventory on the storefront (4.6974ms)
+✔ checkout rejects an out-of-stock product even when its variants have stock (1.3133ms)
+✔ saving variants preserves the admin status during summary synchronization (4.1736ms)
+✔ variant product API, rollback, stock, checkout and restoration (926.0903ms)
+✔ matrix creates Cartesian combinations with order-independent stable keys (5.0522ms)
+✔ variant validation rejects duplicate, missing, incorrect and invalid commercial data (3.3253ms)
+ℹ tests 66
+ℹ suites 0
+ℹ pass 62
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18224.1051
+
+✖ failing tests:
+
+test at tests\catalog.integration.test.js:10:1
+✖ men’s catalog: database tree, protected management, dependent product assignments and filtering (795.653ms)
+  Error: SAVEPOINT catalog_test does not exist
+      at Object.rollback (file:///C:/Users/Farhan/OneDrive/Desktop/E-Comerance%20%20%20web/server/tests/catalog.integration.test.js:17:212)
+      at file:///C:/Users/Farhan/OneDrive/Desktop/E-Comerance%20%20%20web/server/routes/productRoutes.js:119:38
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+    code: 'ER_SP_DOES_NOT_EXIST',
+    errno: 1305,
+    sqlState: '42000',
+    sqlMessage: 'SAVEPOINT catalog_test does not exist',
+    sql: 'ROLLBACK TO SAVEPOINT catalog_test'
+  }
+
+test at tests\productAttributes.test.js:11:1
+✖ saves only selected options with authoritative names and swatches (5.8322ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + undefined
+  - [
+  -   'M'
+  - ]
+  
+      at TestContext.<anonymous> (file:///C:/Users/Farhan/OneDrive/Desktop/E-Comerance%20%20%20web/server/tests/productAttributes.test.js:16:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: [ 'M' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\productAttributes.test.js:25:1
+✖ clearing selections removes storefront options and handles old database rows (1.385ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  
+  undefined !== []
+  
+      at TestContext.<anonymous> (file:///C:/Users/Farhan/OneDrive/Desktop/E-Comerance%20%20%20web/server/tests/productAttributes.test.js:29:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\stockStatus.test.js:7:1
+✖ admin out-of-stock status overrides positive inventory on the storefront (4.6974ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - false
+  
+      at TestContext.<anonymous> (file:///C:/Users/Farhan/OneDrive/Desktop/E-Comerance%20%20%20web/server/tests/stockStatus.test.js:8:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.start (node:internal/test_runner/test:1191:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+Disposable test database removed.

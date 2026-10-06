@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===== ShopHub Premium Motion System ===== */
+/* Timing tokens (CSS variables for easy reuse) */
+:root {
+  --sh-duration-micro: 180ms;
+  --sh-duration-card: 260ms;
+  --sh-duration-reveal: 650ms;
+  --sh-duration-hero: 850ms;
+  --sh-stagger: 90ms;
+  --sh-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --sh-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Ken Burns slow zoom for hero imagery */
+@keyframes kenBurns {
+  0%   { transform: scale(1.00) translate(0, 0); }
+  50%  { transform: scale(1.06) translate(-1%, 0.5%); }
+  100% { transform: scale(1.12) translate(-2%, 1%); }
+}
+
+/* Continuous marquee (already present in LogoCarousel, re-declared here) */
+@keyframes continuousScroll {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Cart badge pop/bounce */
+@keyframes badgePop {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.25); }
+  70%  { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+
+/* Heart fill scale */
+@keyframes heartBeat {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.18); }
+  60%  { transform: scale(0.94); }
+  100% { transform: scale(1); }
+}
+
+/* Arrow slide */
+@keyframes arrowSlide {
+  0%   { transform: translateX(0); opacity: 0.7; }
+  100% { transform: translateX(5px); opacity: 1; }
+}
+
+/* Image zoom overlay lift */
+@keyframes imgZoomIn {
+  0%   { transform: scale(1.0); }
+  100% { transform: scale(1.08); }
+}
+
+/* Subtle fade-up for text reveals */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Count tick */
+@keyframes countPulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+/* Utility: apply the Ken Burns effect (respects reduced motion) */
+.sh-ken-burns {
+  animation: kenBurns 22s var(--sh-ease-out) infinite alternate;
+}
+.sh-ken-burns-slow {
+  animation: kenBurns 30s var(--sh-ease-out) infinite alternate;
+}
+
+/* Utility: continuous scroll (LogoCarousel) */
+.sh-marquee-track {
+  animation: continuousScroll var(--speed, 28s) linear infinite;
+  will-change: transform;
+}
+
+/* Utility: badge pop */
+.sh-badge-pop {
+  animation: badgePop 380ms var(--sh-ease-out);
+  transform-origin: center;
+}
+
+/* Utility: heart beat */
+.sh-heart-beat {
+  animation: heartBeat 320ms var(--sh-ease-out);
+  transform-origin: center;
+}
+
+/* Utility: arrow slide */
+.sh-arrow-slide {
+  animation: arrowSlide 260ms var(--sh-ease-out) forwards;
+}
+
+/* Utility: image zoom on hover/click */
+.sh-img-zoom {
+  transition: transform var(--sh-duration-card) var(--sh-ease);
+  transform: scale(1);
+}
+.sh-img-zoom:hover,
+.sh-img-zoom.is-active {
+  transform: scale(1.07);
+}
+
+/* Utility: card lift */
+.sh-card-lift {
+  transition: transform var(--sh-duration-card) var(--sh-ease),
+              box-shadow 260ms var(--sh-ease),
+              border-color 260ms var(--sh-ease);
+}
+.sh-card-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Utility: text color transition to brand orange */
+.sh-link-orange {
+  transition: color 220ms var(--sh-ease);
+}
+.sh-link-orange:hover {
+  color: theme("colors.orange.600");
+}
+
+/* Stagger container: children receive a delay based on index */
+.sh-stagger > * {
+  opacity: 0;
+  animation: fadeUp var(--sh-duration-reveal) var(--sh-ease) forwards;
+  animation-delay: calc(var(--i, 0) * var(--sh-stagger, 90ms));
+}
+.sh-stagger.is-visible > * {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* Reduced-motion overrides: strip all transforms/transitions */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sh-duration-micro: 0ms;
+    --sh-duration-card: 0ms;
+    --sh-duration-reveal: 0ms;
+    --sh-duration-hero: 0ms;
+    --sh-stagger: 0ms;
+  }
+  .sh-ken-burns,
+  .sh-ken-burns-slow,
+  .sh-marquee-track,
+  .sh-badge-pop,
+  .sh-heart-beat,
+  .sh-arrow-slide,
+  .sh-img-zoom,
+  .sh-card-lift,
+  .sh-stagger > * {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.animate-scaleUp {
+  animation: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom scale value not in Tailwind's default scale */
+.scale-108 { transform: scale(1.08); }
+.group:hover .group-hover\:scale-108 { transform: scale(1.08); }
+
+/* Logo marquee pause on hover */
+.sh-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Countdown digit styling */
+@keyframes digitFlip {
+  0%   { transform: translateY(-4px); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+.countdown-digit {
+  animation: digitFlip 250ms var(--sh-ease-out);
+}
+
+/* Newsletter section fade in */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

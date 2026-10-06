@@ -1,0 +1,102 @@
+
+> ecommerce-backend@1.0.0 test:all:isolated
+> node tests/runIsolatedDbTests.js
+
+✔ every configured category/subcategory link selects its product after API reload (13.4997ms)
+✔ legacy slugs and aliases select the same catalog items (0.7484ms)
+✔ custom names and ampersands survive links and reload (0.8079ms)
+✔ normalizes color names and hex values (4.8858ms)
+✔ text attributes discard unused swatches (0.2665ms)
+✔ rejects invalid and duplicate values (1.0938ms)
+▶ public registration and database-backed administrator authorization
+  ✔ registration ignores role (omitted) (332.012ms)
+  ✔ registration ignores role "admin" (245.4051ms)
+  ✔ registration ignores role "administrator" (249.098ms)
+  ✔ registration ignores role "superadmin" (266.7147ms)
+  ✔ registration ignores role "ADMIN" (248.5165ms)
+  ✔ registration ignores role ["admin"] (265.3239ms)
+  ✔ registration ignores role {"role":"admin"} (249.1555ms)
+  ✔ existing customer registration validation is preserved (17.3719ms)
+  ✔ customer login and current-user response remain normal users (166.5249ms)
+  ✔ existing admin login and protected admin access still work (287.3985ms)
+  ✔ database role overrides signed admin claims and request state (27.8591ms)
+  ✔ unsigned browser/demo state and tampered JWT identity are rejected (49.7005ms)
+  ✔ customer denied across admin management API families (126.7982ms)
+  ✔ wrong passwords including former shortcuts never sign or return a JWT (606.3773ms)
+  ✔ unknown admin email has the same safe failure response and no JWT (14.369ms)
+  ✔ empty and malformed login credentials fail validation without signing (107.7963ms)
+  ✔ internal login errors never expose database details or sign a JWT (9.0794ms)
+  ✔ expired configured-secret token is rejected (8.6863ms)
+  ✔ demoted administrator loses access despite a previously issued token (9.5609ms)
+✔ public registration and database-backed administrator authorization (3451.926ms)
+✔ banner API persistence, access control, visibility, ordering and deletion (366.551ms)
+✔ banner payload retains editable content and supports partial visibility updates (26.8017ms)
+✔ unsafe destinations and malformed or oversized content are rejected (1.5749ms)
+✔ men’s catalog: database tree, protected management, dependent product assignments and filtering (714.5ms)
+▶ SQL image widening preserves history and permits large-image checkout
+  ✔ old TEXT capacity reproduces the checkout-image failure (20.4452ms)
+  ✔ migration widens existing schema idempotently and preserves all old image bytes (63.5105ms)
+Order status email skipped: email credentials or recipient is missing.
+  ✔ order creation and retrieval with a maximum-size product image (122.047ms)
+Order status email skipped: email credentials or recipient is missing.
+  ✔ order creation and retrieval with a maximum-size variant image (107.0582ms)
+  ✔ existing URL and base64 order images still return through order history (40.1721ms)
+Stripe Payment Intent Error: Your total has changed. Refresh checkout before paying.
+Order status email skipped: email credentials or recipient is missing.
+  ✔ Cart quote -> Checkout quote -> Stripe amount -> stored order use the same PKR breakdown (258.399ms)
+✔ SQL image widening preserves history and permits large-image checkout (1270.7026ms)
+✔ normal URLs, local references and base64 images are retained unchanged (2.3501ms)
+✔ large images above old TEXT capacity and exactly 512 KiB are supported (51.0181ms)
+✔ invalid MIME, disguised content, truncated base64 and unsafe references rejected (1.4323ms)
+✔ embedded images over 512 KiB rejected on the API/shared validation boundary (36.4293ms)
+✔ upload file metadata enforces raster type, nonempty content and raw file limit (0.4857ms)
+✔ variant validation applies the same image limits (52.747ms)
+✔ checkout requests contain only IDs and quantities, never image copies (11.8381ms)
+✔ unchanged legacy variant images survive edits but new oversized images cannot bypass validation (40.999ms)
+✔ image schema migration widens once and preserves nullability without data writes (1.3811ms)
+✔ JWT configuration requires an explicit secret without changing its value (4.5208ms)
+✔ production server exits before listening when JWT_SECRET is empty (988.9997ms)
+✔ operations API authorization, moderation, inventory and returns (1225.6329ms)
+✔ automatic discounts use the best offer, not stacked discounts (1.5539ms)
+✔ product rules discount only the eligible product and cap fixed amounts (0.3228ms)
+✔ coupons require a matching code, dates, minimum spend and eligible products (0.5984ms)
+✔ money rounds to cents and invalid quantities are rejected (0.4503ms)
+✔ PKR shipping boundaries, zero cart and rounding use the existing rules (1.6635ms)
+✔ multiple products and variant sale prices come from SQL, ignoring all client amounts (1.144ms)
+✔ product attributes persist on create/edit, reject invalid values, and clear (547.7771ms)
+✔ saves only selected options with authoritative names and swatches (3.4308ms)
+✔ rejects missing attributes, unavailable values, duplicates and malformed selections (1.02ms)
+✔ clearing selections removes storefront options and handles old database rows (1.6733ms)
+✔ explicit option clearing overrides stale cached arrays and stays cleared on reload (2.9588ms)
+✔ legacy options survive normalization without an attributes field and variant records are untouched (0.7271ms)
+✔ removing an option drops stale variant rows while retaining unchanged SKU/price/stock relationships (0.553ms)
+▶ protected customer profile persists in SQL without changing protected fields
+  ✔ own profile is saved, read back after refresh, and returned on fresh login (281.5325ms)
+  ✔ body/path/query identities cannot select another customer (52.5718ms)
+  ✔ protected and unknown fields reject the entire update (126.7817ms)
+  ✔ invalid fields and duplicate email reject without partial writes (199.1385ms)
+  ✔ missing, invalid and forged JWTs cannot update any profile (30.9199ms)
+  ✔ optional fields clear and omitted fields remain unchanged (12.5243ms)
+  ✔ server errors return a safe failure without a success response (21.4592ms)
+✔ protected customer profile persists in SQL without changing protected fields (1004.1986ms)
+✔ profile validation permits only existing profile fields and supports clearing contact details (3.3487ms)
+✔ frontend saves through protected API and refresh reads the server profile (42.9089ms)
+✔ frontend rejects validation, unauthorized and server failures instead of reporting a saved profile (3.9808ms)
+✔ purchase variants: receive, edit, reject over-reversal, delete (580.1086ms)
+✔ admin out-of-stock status overrides positive inventory on the storefront (5.3696ms)
+✔ stock labels, numeric strings and legacy flags normalize consistently and idempotently (5.8884ms)
+✔ checkout also rejects noncanonical out-of-stock labels (1.4142ms)
+✔ checkout rejects an out-of-stock product even when its variants have stock (0.3913ms)
+✔ saving variants preserves the admin status during summary synchronization (3.0774ms)
+✔ variant product API, rollback, stock, checkout and restoration (747.6104ms)
+✔ matrix creates Cartesian combinations with order-independent stable keys (3.3604ms)
+✔ variant validation rejects duplicate, missing, incorrect and invalid commercial data (4.9622ms)
+ℹ tests 82
+ℹ suites 0
+ℹ pass 82
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18268.6874
+Disposable test database removed.
